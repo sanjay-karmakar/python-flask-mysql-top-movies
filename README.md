@@ -86,7 +86,7 @@ python --version
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com
+git clone https://github.com/sanjay-karmakar/python-flask-mysql-top-movies.git
 cd flask-mysql-top-movies
 ```
 
