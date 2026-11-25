@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}My Top 10 Movies{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="heading">My Top 10 Movies</h1>
+    <p class="description">These are my all-time favourite movies.</p>
+
+{% if movies: %}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for movie in movies: %}
+        <div class="card">
+            <div class="front"
+                 style="background-image: url('{{ movie.img_url }}');">
+                <!-- Displays the movie's ranking (or fallback to loop position) -->
+                <p class="large">{{ movie.rating | float or loop.index }}</p>
+            </div>
+            <div class="back">
+                <div>
+                    <div class="title">{{ movie.title }} <span class="release_date">({{ movie.year }})</span></div>
+                    <div class="rating">
+                        <label>{{ movie.rating }}</label>
+                        {% if movie.rating %}
+                            {% for i in range(0, movie.rating | int) %}
+                            <i class="fas fa-star star"></i>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <p class="review">"{{ movie.review }}"</p>
+                    <p class="overview">
+                        {{ movie.description }}
+                    </p>
+
+                    <a href="{{ url_for('edit', id=movie.id) }}" class="button">Update</a>
+                    <a href="{{ url_for('delete', id=movie.id) }}" data-title="{{ movie.title }}" class="button delete-button">Delete</a>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+</div>
+<div class="container text-center add">
+    <a href="{{ url_for('add') }}" class="button">Add New Movie</a>
+</div>
+
+{% endblock %}

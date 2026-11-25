@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_field %}
+{% block title %}Edit Movies{% endblock %} {% block content %}
+
+<div class="content">
+    <h1 class="heading">{{ movie.title }}</h1>
+<!--    <p class="description">Edit Movie Details</p>-->
+    <div class="w-50">
+        <form method="POST" novalidate>
+            {{ form.csrf_token }}
+            {{ render_field(form.title) }}
+            {{ render_field(form.year) }}
+            {{ render_field(form.description) }}
+            {{ render_field(form.rating) }}
+            {{ render_field(form.ranking) }}
+            {{ render_field(form.review) }}
+            {{ render_field(form.img_url) }}
+
+            <div class="d-flex gap-2 mt-3">
+                {{ form.submit(class="button") }}
+                <a href="{{ url_for('home') }}" class="button cancel-button">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

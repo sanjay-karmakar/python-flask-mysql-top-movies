@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>{% block title %}{% endblock %}</title>
+    {% block styles %}
+    <!-- Load Bootstrap-Flask CSS here -->
+    {{ bootstrap.load_css() }}
+    <!-- Link to the styles.css here to apply styling to all the child templates.-->
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700"
+    />
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Poppins:300,400,700"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+            integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+            crossorigin="anonymous"
+    />
+    <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.26.26/sweetalert2.min.css"
+    />
+    {% endblock %}
+</head>
+<body>
+    <!-- Full-screen Bootstrap 5 Loading Overlay (Hidden by default) -->
+    <div id="loader-overlay"
+         class="d-none position-fixed top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+         style="background-color: rgba(0, 0, 0, 0.7); z-index: 9999;">
+        <div class="spinner-border text-light" style="width: 3.5rem; height: 3.5rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p id="loader-text" class="text-light mt-3 fw-semibold fs-5">Loading...</p>
+    </div>
+
+    <div class="py-3">
+    {% block content %}{% endblock %}</div>
+
+    {% block scripts %}
+        {{ bootstrap.load_js() }}
+        <script>
+            function showLoader(message = "Loading...") {
+                document.getElementById("loader-text").textContent = message;
+                document.getElementById("loader-overlay").classList.remove("d-none");
+            }
+        </script>
+        <!-- SweetAlert2 CDN -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.26.26/sweetalert2.min.js"></script>
+        <script>
+        // SweetAlert2 confirmation for all Delete buttons
+        document.querySelectorAll(".delete-button").forEach((btn) => {
+            btn.addEventListener("click", function (e) {
+                e.preventDefault();
+                const deleteUrl = this.getAttribute("href");
+                const movieTitle = this.getAttribute("data-title") || "this movie";
+
+                if (typeof Swal !== "undefined") {
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: `Do you really want to delete "${movieTitle}"?`,
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#d33",
+                        cancelButtonColor: "#6c757d",
+                        confirmButtonText: "Yes, delete it!"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            showLoader("Deleting movie...");
+                            window.location.href = deleteUrl;
+                        }
+                    });
+                } else if (confirm(`Do you really want to delete "${movieTitle}"?`)) {
+                    showLoader("Deleting movie...");
+                    window.location.href = deleteUrl;
+                }
+            });
+        });
+    </script>
+    {% endblock %}
+</body>
+</html>
