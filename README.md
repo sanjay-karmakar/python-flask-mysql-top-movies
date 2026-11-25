@@ -139,10 +139,14 @@ Open your browser and navigate to **`http://127.0.0.1:5000`**.
 
 ## 📸 Screenshots
 
-> *Add screenshots of your Home Page, Edit Form, and SweetAlert2 Delete Confirmation inside a `screenshots/` folder and link them below:*
-> ```markdown
-> ![Home Page](screenshots/home.png)
-> ![Delete Confirmation](screenshots/delete-alert.png)
+### Home Page (3-Column Responsive Grid & Auto-Ranking)
+![Home Page](screenshots/home.png)
+
+### Add / Edit Movie Form
+![Edit Movie Form](screenshots/edit.png)
+
+### SweetAlert2 Delete Confirmation
+![Delete Confirmation](screenshots/delete-alert.png)
 > ```
 
 ---
@@ -187,8 +191,8 @@ Through building this project, I practiced:
 
 Full-Stack Python & Flask Developer
 
-- GitHub: [@sanjay-karmakar](https://github.com)
-- LinkedIn: [Connect with me on LinkedIn](https://linkedin.com)
+- GitHub: [@sanjay-karmakar](https://github.com/sanjay-karmakar)
+- LinkedIn: [Connect with me on LinkedIn](https://www.linkedin.com/in/sanjay-karmakar-a05827163/)
 
 ### 📌 Tagline
 *Turning ideas into clean, interactive full-stack web applications.*
